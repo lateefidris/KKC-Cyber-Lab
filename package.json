@@ -1,0 +1,11 @@
+{
+  "name": "kkc-cyber-lab",
+  "version": "1.0.0",
+  "description": "Kennedy King College Cyber Career Stations",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
