@@ -4,10 +4,10 @@
   "description": "Kennedy King College Cyber Career Stations",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
     "deploy": "vercel",
     "test": "node --test api/evaluate.test.js api/password-feedback.test.js"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "vercel": "^50.22.1"
+  }
 }
