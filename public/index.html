@@ -1646,38 +1646,18 @@ async function showPentesterResults(passwords, userRanking) {
   );
   
   try {
-    // Call Claude API for personalized feedback with timeout
-    const apiPromise = fetch("https://api.anthropic.com/v1/messages", {
+    // Call serverless function for personalized feedback with timeout
+    const apiPromise = fetch("/api/password-feedback", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 500,
-        messages: [{
-          role: "user",
-          content: `You are helping a high school student learn about password security. They just ranked passwords from weakest to strongest.
-
-Their ranking:
-${userRankingText}
-
-Correct ranking (weakest to strongest):
-${correctRankingText}
-
-Give them 2-3 sentences of personalized feedback:
-1. What did they get right?
-2. What was their biggest mistake?
-3. One key lesson about password patterns to remember
-
-Be encouraging but specific. Use a casual, helpful tone.`
-        }]
-      })
+      body: JSON.stringify({ userRankingText, correctRankingText })
     });
 
     const response = await Promise.race([apiPromise, timeoutPromise]);
     const data = await response.json();
-    aiFeedback = data.content[0].text;
+    aiFeedback = data.feedback;
     
   } catch (error) {
     console.error('AI feedback failed:', error);
@@ -1717,7 +1697,7 @@ Be encouraging but specific. Use a casual, helpful tone.`
             <strong>Crack Time:</strong> ${correctPwd.crackTime}
           </div>
           <div style="font-size: 0.9rem; color: var(--text);">
-            <strong>Strength:</strong> ${'★'.repeat(correctPwd.strength + 1)}${'☆'.repeat(4 - correctPwd.strength)}
+            <strong>Strength:</strong> ${'★'.repeat(Math.min(5, Math.round(correctPwd.strength)))}${'☆'.repeat(Math.max(0, 5 - Math.round(correctPwd.strength)))}
           </div>
         </div>
         <div style="font-size: 0.9rem; color: var(--muted);">
