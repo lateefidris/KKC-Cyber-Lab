@@ -122,15 +122,17 @@
 
   .header h1 .college-name {
     font-family: 'Syne', sans-serif;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
   }
 
   .header h1 .station-name {
     font-family: 'Inter', sans-serif;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 800;
+    text-transform: uppercase;
   }
 
   .subtitle {
@@ -2064,7 +2066,10 @@ async function showTeamSelection() {
   document.getElementById('stationSelect').innerHTML = `
     <div class="header">
       <div class="badge">⚡ Select Your Team</div>
-      <h1>Kennedy King College Cyber Career Stations</h1>
+      <h1>
+        <span class="college-name">Kennedy King College</span>
+        <span class="station-name">Cyber Career Stations</span>
+      </h1>
       <p class="subtitle">Enter your team name to begin</p>
     </div>
 
