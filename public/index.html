@@ -2375,15 +2375,19 @@ initializeTeamData();
 loadHighScores();
 
 // Check for special routes
-const path = window.location.pathname;
-if (path.includes('leaderboard')) {
-  showLeaderboard();
-} else if (path.includes('admin')) {
-  showAdmin();
-} else {
-  // Show team selection on load
-  showTeamSelection();
+function handleRoute() {
+  const hash = window.location.hash;
+  if (hash.includes('leaderboard')) {
+    showLeaderboard();
+  } else if (hash.includes('admin')) {
+    showAdmin();
+  } else {
+    showTeamSelection();
+  }
 }
+
+window.addEventListener('hashchange', handleRoute);
+handleRoute();
 </script>
 
 </body>
