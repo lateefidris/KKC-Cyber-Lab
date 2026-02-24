@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel",
-    "test": "node --test api/evaluate.test.js api/password-feedback.test.js"
+    "test": "node --test api/evaluate.test.js api/password-feedback.test.js tests/scoring.test.js"
   },
   "dependencies": {},
   "devDependencies": {}

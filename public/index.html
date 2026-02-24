@@ -1218,17 +1218,14 @@ function renderPentesterChallenge() {
     
     // Get correct order by sorting by strength
     const correctOrder = [...passwords].sort((a, b) => a.strength - b.strength);
-    
-    // Score based on how many passwords are in the correct position
-    let score = 0;
-    const pointsPerCorrect = Math.floor(600 / passwords.length); // Scale to max 600 points
-    
-    userRanking.forEach((userPwd, idx) => {
-      // Check if this password is in the correct position
-      if (correctOrder[idx].id === userPwd.id) {
-        score += pointsPerCorrect;
-      }
-    });
+
+    // Score based on how many passwords are in the correct position.
+    // Use Math.round on the final ratio so a perfect score always equals
+    // exactly 600 regardless of how many passwords are in the round.
+    const correctCount = userRanking.filter((userPwd, idx) =>
+      correctOrder[idx].id === userPwd.id
+    ).length;
+    const score = Math.round(600 * correctCount / passwords.length);
     
     currentScore = score;
     totalScore += score;
