@@ -736,6 +736,16 @@
 </div>
 
 <script>
+// Convert simple Markdown (headers, bold) returned by the AI into HTML
+function markdownToHtml(text) {
+  return text
+    .replace(/### (.*?)(\n|$)/g, '<h3>$1</h3>')
+    .replace(/## (.*?)(\n|$)/g, '<h2>$1</h2>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+}
+
 // Supabase Configuration
 const SUPABASE_URL = 'https://lkltiaxdodtaaxndocum.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrbHRpYXhkb2R0YWF4bmRvY3VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NjI1MjgsImV4cCI6MjA4NzQzODUyOH0.qKMhgWNhky1xKlQRJfm6f1WmjAa5HoBqVgZh2dWUr8k';
@@ -1745,7 +1755,7 @@ async function showPentesterResults(passwords, userRanking) {
           💡 Feedback:
         </div>
         <div style="font-size: 1rem; color: var(--text); line-height: 1.6;">
-          ${aiFeedback}
+          ${markdownToHtml(aiFeedback)}
         </div>
       </div>
 
@@ -1879,13 +1889,13 @@ function showAwarenessResults(message, score, feedback, suggestion) {
           Feedback:
         </div>
         <div style="font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 16px;">
-          ${feedback}
+          ${markdownToHtml(feedback)}
         </div>
         <div style="font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 8px;">
           Suggestion:
         </div>
         <div style="font-size: 0.95rem; color: var(--muted); line-height: 1.6;">
-          ${suggestion}
+          ${markdownToHtml(suggestion)}
         </div>
       </div>
 
